@@ -1,0 +1,21 @@
+name: Generate PI image
+
+on:
+  workflow_dispatch:
+
+jobs:
+  pi-gen:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: usimd/pi-gen-action@v1
+        id: build
+        with:
+          pi-gen-repository: DataForUs-udes/pi-gen
+          image-name: DFU
+          stage-list: stage0 stage1 stage2 ./stage-rndis
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pi-gen-image
+          path: ${{ steps.build.outputs.image-path }}
