@@ -1,0 +1,11 @@
+[Unit]
+Description=Clear DHCP leases before starting dnsmasq
+Before=dnsmasq.service
+
+[Service]
+Type=oneshot
+ExecStart=/etc/clear-dhcp-leases.sh
+RemainAfterExit=true
+
+[Install]
+WantedBy=dnsmasq.service
