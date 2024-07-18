@@ -12,7 +12,6 @@ jobs:
       - uses: usimd/pi-gen-action@v1
         id: build
         with:
-          pi-gen-repository: DataForUs-udes/pi-gen
           image-name: DFU
           stage-list: stage0 stage1 stage2 ./stage-rndis
       - uses: actions/upload-artifact@v4
