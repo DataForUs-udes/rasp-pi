@@ -13,7 +13,7 @@ jobs:
         id: build
         with:
           image-name: DFU
-          stage-list: stage0 stage1 stage2 ./stage-rndis ./stage-sql
+          stage-list: stage0 stage1 stage2 ./stage-sql
       - uses: actions/upload-artifact@v4
         with:
           name: pi-gen-image
