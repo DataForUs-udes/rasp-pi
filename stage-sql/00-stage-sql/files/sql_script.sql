@@ -3,7 +3,6 @@ CREATE TABLE IF NOT EXISTS DataTypes (
         definition TEXT UNIQUE NOT NULL
 );
 
-
 CREATE TABLE IF NOT EXISTS Status (
         id_status INTEGER PRIMARY KEY AUTOINCREMENT,
         definition TEXT UNIQUE NOT NULL
