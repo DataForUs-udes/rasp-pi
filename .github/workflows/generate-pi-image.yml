@@ -13,8 +13,10 @@ jobs:
         id: build
         with:
           image-name: DFU
+          increase-runner-disk-size: true
           stage-list: stage0 stage1 stage2 ./stage-rndis ./stage-sql
       - name: Show disk usage
+        if: always()
         run: df -h
       - uses: actions/upload-artifact@v4
         with:
