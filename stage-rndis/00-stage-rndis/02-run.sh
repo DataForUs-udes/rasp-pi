@@ -3,7 +3,7 @@
 # Config Gadget mode
 on_chroot <<- EOF
     echo "dtoverlay=dwc2" >> /boot/firmware/config.txt
-    sed -i 's/$/ modules-load=dwc2,g_ether/' /boot/firmware/cmdline.txt
+    sed -i 's/$/ modules-load=dwc2,g_ether,g_mass_storage/' /boot/firmware/cmdline.txt
 EOF
 
 # Config dnsmasq DHCP
@@ -35,4 +35,25 @@ on_chroot <<- EOF
     systemctl daemon-reload
     systemctl enable clear-dhcp-leases.service
     systemctl start clear-dhcp-leases.service
+EOF
+
+# Configure USB mass storage
+on_chroot <<- EOF
+    mkdir -p /piusb
+    dd if=/dev/zero of=/piusb/usbdrive.img bs=1M count=128
+    mkfs.vfat /piusb/usbdrive.img
+    echo "options g_mass_storage file=/piusb/usbdrive.img stall=0 removable=1" > /etc/modprobe.d/g_mass_storage.conf
+EOF
+
+# Add a file to the USB drive image
+on_chroot <<- EOF
+    mkdir -p /mnt/usbdrive
+    mount -o loop /piusb/usbdrive.img /mnt/usbdrive
+    echo "Hello World!" > /mnt/usbdrive/hello.txt
+EOF
+
+
+# unmount the USB drive image
+on_chroot <<- EOF
+    umount /mnt/usbdrive
 EOF
