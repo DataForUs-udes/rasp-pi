@@ -40,7 +40,7 @@ EOF
 # Configure USB mass storage
 on_chroot <<- EOF
     mkdir -p /piusb
-    dd if=/dev/zero of=/piusb/usbdrive.img bs=1M count=128
+    dd if=/dev/zero of=/piusb/usbdrive.img bs=1M count=32
     mkfs.vfat /piusb/usbdrive.img
     echo "options g_mass_storage file=/piusb/usbdrive.img stall=0 removable=1" > /etc/modprobe.d/g_mass_storage.conf
 EOF
