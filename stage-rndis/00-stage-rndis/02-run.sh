@@ -45,15 +45,11 @@ on_chroot <<- EOF
     echo "options g_mass_storage file=/piusb/usbdrive.img stall=0 removable=1" > /etc/modprobe.d/g_mass_storage.conf
 EOF
 
-# Add a file to the USB drive image
-on_chroot <<- EOF
-    mkdir -p /mnt/usbdrive
-    mount -o loop /piusb/usbdrive.img /mnt/usbdrive
-    echo "Hello World!" > /mnt/usbdrive/hello.txt
-EOF
+# Install the first boot script
+install -v -m 755 files/create-usbdrive.sh "${ROOTFS_DIR}/usr/local/bin/create-usbdrive.sh"
+install -v -m 644 files/create-usbdrive.service "${ROOTFS_DIR}/etc/systemd/system/create-usbdrive.service"
 
-
-# unmount the USB drive image
 on_chroot <<- EOF
-    umount /mnt/usbdrive
+    systemctl daemon-reload
+    systemctl enable create-usbdrive.service
 EOF
