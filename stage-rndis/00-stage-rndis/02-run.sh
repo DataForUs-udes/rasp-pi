@@ -46,10 +46,19 @@ on_chroot <<- EOF
 EOF
 
 # Install the first boot script
-install -v -m 755 files/create-usbdrive.sh "${ROOTFS_DIR}/usr/local/bin/create-usbdrive.sh"
+install -v -m 755 files/create-usbdrive.sh "${ROOTFS_DIR}/etc/create-usbdrive.sh"
 install -v -m 644 files/create-usbdrive.service "${ROOTFS_DIR}/etc/systemd/system/create-usbdrive.service"
 
 on_chroot <<- EOF
     systemctl daemon-reload
     systemctl enable create-usbdrive.service
+EOF
+
+# Install the mount script
+install -v -m 755 files/mount-abatteuse-share.sh "${ROOTFS_DIR}/etc/mount-abatteuse-share.sh"
+install -v -m 644 files/mount-abatteuse-share.service "${ROOTFS_DIR}/etc/systemd/system/mount-abatteuse-share.service"
+
+on_chroot <<- EOF
+    systemctl daemon-reload
+    systemctl enable mount-abatteuse-share.service
 EOF

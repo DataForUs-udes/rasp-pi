@@ -1,0 +1,13 @@
+[Unit]
+Description=Mount Abatteuse Network Share
+After=network-online.target usb0.network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/etc/mount-abatteuse-share.sh
+RemainAfterExit=yes
+TimeoutStartSec=60
+
+[Install]
+WantedBy=multi-user.target
