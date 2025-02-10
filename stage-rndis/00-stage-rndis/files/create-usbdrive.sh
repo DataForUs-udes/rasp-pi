@@ -3,7 +3,7 @@
 # Create USB drive image
 mkdir -p /piusb
 dd if=/dev/zero of=/piusb/usbdrive.img bs=1M count=512
-mkfs.vfat /piusb/usbdrive.img
+mkfs.vfat -F 32 /piusb/usbdrive.img
 
 # Add a file to the USB drive image
 mkdir -p /mnt/usbdrive
