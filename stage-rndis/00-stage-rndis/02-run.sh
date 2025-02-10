@@ -2,8 +2,8 @@
 
 # Config Gadget mode
 on_chroot <<- EOF
-    echo "dtoverlay=dwc2" >> /boot/firmware/config.txt
-    sed -i 's/$/ modules-load=dwc2,g_ether,g_mass_storage/' /boot/firmware/cmdline.txt
+    echo "dtoverlay=dwc2,dr_mode=peripheral" >> /boot/firmware/config.txt
+    sed -i 's/$/ modules-load=dwc2,g_multi/' /boot/firmware/cmdline.txt
 EOF
 
 # Config dnsmasq DHCP
@@ -35,14 +35,6 @@ on_chroot <<- EOF
     systemctl daemon-reload
     systemctl enable clear-dhcp-leases.service
     systemctl start clear-dhcp-leases.service
-EOF
-
-# Configure USB mass storage
-on_chroot <<- EOF
-    mkdir -p /piusb
-    dd if=/dev/zero of=/piusb/usbdrive.img bs=1M count=32
-    mkfs.vfat /piusb/usbdrive.img
-    echo "options g_mass_storage file=/piusb/usbdrive.img stall=0 removable=1" > /etc/modprobe.d/g_mass_storage.conf
 EOF
 
 # Install the first boot script
