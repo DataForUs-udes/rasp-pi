@@ -9,13 +9,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: DataForUs-udes/pi-gen-action@v1.10.01
+      - uses: usimd/pi-gen-action@v1.10.0
         id: build
         with:
           image-name: DFU
           increase-runner-disk-size: true
           pi-gen-version: 2024-07-04-raspios-bookworm-arm64
-          stage-list: stage0 stage1 stage2 ./stage-rndis ./stage-sql
+          stage-list: stage0 stage1 stage2 ./stage-rndis ./stage-ble ./stage-sql
       - name: Show disk usage
         if: always()
         run: df -h

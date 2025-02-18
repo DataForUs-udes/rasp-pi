@@ -6,8 +6,8 @@ on_chroot <<- EOF
     
 EOF
 
-
-
+#update the submodules
+git submodule update --init --recursive
 
 
 #installing files of raspi-ble
