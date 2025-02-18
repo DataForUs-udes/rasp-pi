@@ -50,6 +50,8 @@ EOF
 install -v -m 755 files/mount-abatteuse-share.sh "${ROOTFS_DIR}/etc/mount-abatteuse-share.sh"
 install -v -m 644 files/mount-abatteuse-share.service "${ROOTFS_DIR}/etc/systemd/system/mount-abatteuse-share.service"
 
+install -v -m 644 files/rndis.inf "${ROOTFS_DIR}/etc/rndis.inf"
+
 on_chroot <<- EOF
     systemctl daemon-reload
     systemctl enable mount-abatteuse-share.service
