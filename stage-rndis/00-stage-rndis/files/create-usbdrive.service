@@ -1,0 +1,11 @@
+[Unit]
+Description=Create USB Drive Image on First Boot
+After=network.target
+
+[Service]
+Type=oneshot
+ExecStart=/etc/create-usbdrive.sh
+RemainAfterExit=true
+
+[Install]
+WantedBy=multi-user.target

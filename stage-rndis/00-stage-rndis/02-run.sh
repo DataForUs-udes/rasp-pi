@@ -2,8 +2,8 @@
 
 # Config Gadget mode
 on_chroot <<- EOF
-    echo "dtoverlay=dwc2" >> /boot/firmware/config.txt
-    sed -i 's/$/ modules-load=dwc2,g_ether/' /boot/firmware/cmdline.txt
+    echo "dtoverlay=dwc2,dr_mode=peripheral" >> /boot/firmware/config.txt
+    sed -i 's/$/ modules-load=dwc2,g_multi/' /boot/firmware/cmdline.txt
 EOF
 
 # Config dnsmasq DHCP
@@ -35,4 +35,24 @@ on_chroot <<- EOF
     systemctl daemon-reload
     systemctl enable clear-dhcp-leases.service
     systemctl start clear-dhcp-leases.service
+EOF
+
+# Install the first boot script
+install -v -m 755 files/create-usbdrive.sh "${ROOTFS_DIR}/etc/create-usbdrive.sh"
+install -v -m 644 files/create-usbdrive.service "${ROOTFS_DIR}/etc/systemd/system/create-usbdrive.service"
+
+on_chroot <<- EOF
+    systemctl daemon-reload
+    systemctl enable create-usbdrive.service
+EOF
+
+# Install the mount script
+install -v -m 755 files/mount-abatteuse-share.sh "${ROOTFS_DIR}/etc/mount-abatteuse-share.sh"
+install -v -m 644 files/mount-abatteuse-share.service "${ROOTFS_DIR}/etc/systemd/system/mount-abatteuse-share.service"
+
+install -v -m 644 files/rndis.inf "${ROOTFS_DIR}/etc/rndis.inf"
+
+on_chroot <<- EOF
+    systemctl daemon-reload
+    systemctl enable mount-abatteuse-share.service
 EOF
