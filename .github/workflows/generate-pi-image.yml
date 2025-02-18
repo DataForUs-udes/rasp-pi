@@ -15,7 +15,8 @@ jobs:
           image-name: DFU
           increase-runner-disk-size: true
           pi-gen-version: 2024-07-04-raspios-bookworm-arm64
-          stage-list: stage0 stage1 stage2 ./stage-rndis ./stage-sql
+          stage-list: stage0 stage1 stage2 ./stage-rndis ./stage-sql ./stage-developpement
+          docker-opts: --env SSH_PRIVATE_KEY=${{ secrets.SSH_PRIVATE_KEY }}
       - name: Show disk usage
         if: always()
         run: df -h

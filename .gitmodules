@@ -1,0 +1,4 @@
+[submodule "stage-developpement/00-stage-developpement/files/StanForD-Parser"]
+	path = stage-developpement/00-stage-developpement/files/StanForD-Parser
+	url = https://github.com/DataForUs-udes/StanForD-Parser.git
+	branch = main
