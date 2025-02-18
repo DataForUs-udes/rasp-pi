@@ -1,0 +1,3 @@
+[submodule "stage-ble/00-stage-ble/files/raspi-ble"]
+	path = stage-ble/00-stage-ble/files/raspi-ble
+	url = https://github.com/DataForUs-udes/raspi-ble.git
