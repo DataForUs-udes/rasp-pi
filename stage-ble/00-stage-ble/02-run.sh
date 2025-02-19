@@ -15,4 +15,10 @@ install -v -m 755 files/raspi-ble/service.py "${ROOTFS_DIR}/home/pi/raspi-ble/se
 install -v -m 755 files/raspi-ble/json_test.json "${ROOTFS_DIR}/home/pi/raspi-ble/json_test.json"
 install -v -m 655 files/main.conf "${ROOTFS_DIR}/etc/bluetooth/main.conf"
 
+# enable bluetooth
+on_chroot <<- EOF
+    sudo rfkill unblock bluetooth
+    sudo hciconfig hci0 up
+EOF
+
 
