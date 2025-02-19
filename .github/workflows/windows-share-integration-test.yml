@@ -49,12 +49,15 @@ jobs:
           # Get the current directory (Windows syntax)
           $CURRENT_DIR = (Get-Location).Path
 
+          # Ensure the path uses Windows-style backslashes (`\`)
+          $CURRENT_DIR = $CURRENT_DIR -replace "/", "\"  
+
           # Start an Ubuntu container in the background, assigned IP 10.0.0.2
           docker run -d --name ubuntu_test `
             --network integration_test_net `
             --ip 10.0.0.2 `
             --hostname ubuntu_test `
-            -v "$CURRENT_DIR:/rasp-pi" `
+            -v "${CURRENT_DIR}:/rasp-pi" `  # FIXED VARIABLE EXPANSION
             ubuntu:latest `
             sleep infinity
 
