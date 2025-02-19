@@ -57,9 +57,8 @@ jobs:
             --network integration_test_net `
             --ip 10.0.0.2 `
             --hostname ubuntu_test `
-            -v "${CURRENT_DIR}:/rasp-pi" `  # FIXED VARIABLE EXPANSION
-            ubuntu:latest `
-            sleep infinity
+            -v "${CURRENT_DIR}:/rasp-pi" `
+            ubuntu:latest sh -c "sleep infinity"
 
           # Update and install cifs-utils (for mounting Samba/SMB shares)
           docker exec ubuntu_test apt-get update
