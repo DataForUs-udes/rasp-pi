@@ -11,7 +11,7 @@ jobs:
         with:
           submodules: recursive
       - name: debug submodules
-        run: ls stage-ble/00-stage-ble/raspi-ble/
+        run: ls stage-ble/00-stage-ble/files/raspi-ble/
 
       - uses: usimd/pi-gen-action@v1.10.0
         id: build
