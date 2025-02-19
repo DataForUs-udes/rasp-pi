@@ -18,7 +18,6 @@ install -v -m 655 files/main.conf "${ROOTFS_DIR}/etc/bluetooth/main.conf"
 # enable bluetooth
 on_chroot <<- EOF
     sudo rfkill unblock bluetooth
-    sudo hciconfig hci0 up
 EOF
 
 
