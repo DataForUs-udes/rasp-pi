@@ -30,7 +30,7 @@ jobs:
 
           # Create a share named 'abatteuse' pointing to C:\abatteuse
           # This grants FULL access to Guest (assuming the Guest account is enabled)
-          New-SmbShare -Name "abatteuse" -Path "C:\abatteuse" -FullAccess "Guest" -Force
+          New-SmbShare -Name "abatteuse" -Path "C:\abatteuse" -FullAccess "Guest" -Confirm:$false
 
       - name: Confirm share creation
         shell: pwsh
