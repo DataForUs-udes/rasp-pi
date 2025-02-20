@@ -15,9 +15,14 @@ install -v -m 755 files/raspi-ble/service.py "${ROOTFS_DIR}/home/pi/raspi-ble/se
 install -v -m 755 files/raspi-ble/json_test.json "${ROOTFS_DIR}/home/pi/raspi-ble/json_test.json"
 install -v -m 655 files/main.conf "${ROOTFS_DIR}/etc/bluetooth/main.conf"
 
-# enable bluetooth
+# Enable bluetooth chip
+install -v -m 755 files/boot_script.sh "${ROOTFS_DIR}/home/pi/boot_script.sh"
+install -v -m 755 files/run_boot_script.service "${ROOTFS_DIR}/etc/systemd/system/run_boot_script.service"
+
 on_chroot <<- EOF
-    sudo rfkill unblock bluetooth
+    systemctl daemon-reload
+    systemctl enable run_boot_script.service
+    systemctl start run_boot_script.service
 EOF
 
 

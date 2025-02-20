@@ -1,0 +1,12 @@
+[Unit]
+Description=Run custom boot commands
+After=network.target
+
+[Service]
+Type=oneshot
+ExecStart=/home/pi/boot_script.sh
+RemainAfterExit=yes
+User=root
+
+[Install]
+WantedBy=multi-user.target
