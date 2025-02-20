@@ -5,8 +5,8 @@ on_chroot <<- EOF
     mkdir /home/pi/StanForD_Example    
 EOF
 
-install -v -m 666 "files/StanForD-Parser/data/secteur plat - 2024-07-07 20.20.pri" "${ROOTFS_DIR}/home/pi/StanForD_Example/secteur plat - 2024-07-07 20.20.pri"
-install -v -m 666 "files/StanForD-Parser/data/secteur plat.stm" "${ROOTFS_DIR}/home/pi/StanForD_Example/secteur plat.stm"
+install -v -m 666 "files/StanForD-Parser/data/input_files/secteur plat - 2024-07-07 20.20.pri" "${ROOTFS_DIR}/home/pi/StanForD_Example/secteur plat - 2024-07-07 20.20.pri"
+install -v -m 666 "files/StanForD-Parser/data/input_files/secteur plat.stm" "${ROOTFS_DIR}/home/pi/StanForD_Example/secteur plat.stm"
 
 # Add git SSH key + config
 on_chroot <<- EOF
