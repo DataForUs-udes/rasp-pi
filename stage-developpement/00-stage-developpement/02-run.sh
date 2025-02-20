@@ -2,7 +2,8 @@
 
 # Add StanForD example files
 on_chroot <<- EOF
-    mkdir /home/pi/StanForD_Example    
+    mkdir /home/pi/StanForD_Example
+    mkdir /home/pi/.ssh   
 EOF
 
 install -v -m 666 "files/StanForD-Parser/data/input_files/secteur plat - 2024-07-07 20.20.pri" "${ROOTFS_DIR}/home/pi/StanForD_Example/secteur plat - 2024-07-07 20.20.pri"
