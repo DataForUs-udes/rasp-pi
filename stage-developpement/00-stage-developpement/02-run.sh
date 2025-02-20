@@ -10,7 +10,7 @@ install -v -m 666 "files/StanForD-Parser/data/secteur plat.stm" "${ROOTFS_DIR}/h
 
 # Add git SSH key + config
 on_chroot <<- EOF
-    echo "${SSH_PRIVATE_KEY}" > "${ROOTFS_DIR}/home/pi/.ssh/id_rsa"
+    echo "${secrets.SSH_PRIVATE_KEY}" > "${ROOTFS_DIR}/home/pi/.ssh/id_rsa"
     chmod 600 "${ROOTFS_DIR}/home/pi/.ssh/id_rsa"
 
     # Configure SSH to use GitHub without strict host checking
