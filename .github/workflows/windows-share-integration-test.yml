@@ -47,7 +47,7 @@ jobs:
         shell: wsl-run {0}
 
       - name: Install packages
-        run: sudo apt-get install -y cifs-utils nmap
+        run: sudo apt-get install -y cifs-utils nmap bash
         shell: wsl-run {0}
 
       - name: Create alias for host
