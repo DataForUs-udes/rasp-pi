@@ -5,7 +5,7 @@ on:
 
 jobs:
   integration-test:
-    runs-on: windows-latest
+    runs-on: windows-2025
 
     steps:
       - name: Check out repository
@@ -36,6 +36,14 @@ jobs:
         shell: pwsh
         run: |
           Get-SmbShare | Where-Object { $_.Name -eq "abatteuse" }
+          
+      - name: Switch to Linux containers mode
+        run: |
+          & 'C:\Program Files\Docker\Docker\DockerCli.exe' -SwitchLinuxEngine
+        shell: powershell
+
+      - name: Check Docker info
+        run: docker info
 
       - name: Create custom Docker network (if supported)
         shell: pwsh
