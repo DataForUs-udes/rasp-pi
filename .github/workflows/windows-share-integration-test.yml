@@ -36,41 +36,24 @@ jobs:
         shell: pwsh
         run: |
           Get-SmbShare | Where-Object { $_.Name -eq "abatteuse" }
-          
-      - name: Switch to Linux containers mode
-        run: |
-          & 'C:\Program Files\Docker\Docker\DockerCli.exe' -SwitchLinuxEngine
-        shell: powershell
 
-      - name: Check Docker info
-        run: docker info
+      - name: Set up WSL2
+        uses: vedantmgoyal9/setup-wsl2@v1.1.0
+        with:
+          distro: Ubuntu
 
-      - name: Create custom Docker network (if supported)
-        shell: pwsh
-        run: |
-          # Attempt to create a Docker network with a specific subnet
-          docker network create --driver nat --subnet=10.0.0.0/24 integration_test_net
+      - name: Update package lists
+        run: sudo apt-get update
+        shell: wsl-run {0}
 
-      - name: Run Docker container on custom network
-        shell: pwsh
-        run: |
-          # Get the current directory (Windows syntax)
-          $CURRENT_DIR = (Get-Location).Path
+      - name: Install packages
+        run: sudo apt-get install -y cifs-utils nmap
+        shell: wsl-run {0}
 
-          # Ensure the path uses Windows-style backslashes (`\`)
-          $CURRENT_DIR = $CURRENT_DIR -replace "/", "\"  
-
-          # Start an Ubuntu container in the background, assigned IP 10.0.0.2
-          docker run -d --name ubuntu_test `
-            --network integration_test_net `
-            --ip 10.0.0.2 `
-            --hostname ubuntu_test `
-            -v "${CURRENT_DIR}:/rasp-pi" `
-            ubuntu:latest sh -c "sleep infinity"
-
-          # Update and install cifs-utils (for mounting Samba/SMB shares)
-          docker exec ubuntu_test apt-get update
-          docker exec ubuntu_test apt-get install -y cifs-utils nmap
-
-          # Now attempt to mount the Windows share from the container
-          docker exec ubuntu_test /rasp-pi/testing/windows-share-integration.sh
+      - name: Create alias for host
+        run: echo "$(grep nameserver /etc/resolv.conf | awk '{print $2}') windows-host" | sudo tee -a /etc/hosts
+        shell: wsl-run {0}
+      
+      - name: Run mount script
+        run: ./rasp-pi/testing/windows-share-integration.sh
+        shell: wsl-run {0}
