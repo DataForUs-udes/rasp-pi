@@ -55,5 +55,5 @@ jobs:
         shell: wsl-run {0}
       
       - name: Run mount script
-        run: ./rasp-pi/testing/windows-share-integration.sh
+        run: ./testing/windows-share-integration.sh
         shell: wsl-run {0}
